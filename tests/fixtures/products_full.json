@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.2.0",
+  "result": [
+    {
+      "name": "postgresql",
+      "label": "PostgreSQL",
+      "category": "database",
+      "identifiers": [
+        {"type": "cpe", "id": "cpe:2.3:a:postgresql:postgresql"},
+        {"type": "purl", "id": "pkg:generic/postgresql"}
+      ],
+      "links": {
+        "html": "https://endoflife.date/postgresql",
+        "releasePolicy": "https://www.postgresql.org/support/versioning/"
+      },
+      "releases": [
+        {"name": "17", "label": "17", "releaseDate": "2024-09-26", "isLts": false, "isEol": false, "eolFrom": "2029-11-08", "isMaintained": true, "latest": {"name": "17.5", "date": "2025-05-08", "link": null}},
+        {"name": "12", "label": "12", "releaseDate": "2019-10-03", "isLts": false, "isEol": true, "eolFrom": "2024-11-21", "isMaintained": false, "latest": {"name": "12.22", "date": "2024-11-21", "link": null}},
+        {"name": "12", "label": "duplicate line, must be skipped", "releaseDate": "2019-10-03", "isEol": true, "eolFrom": "2024-11-21", "latest": null}
+      ]
+    },
+    {
+      "name": "amazon-eks",
+      "label": "Amazon EKS",
+      "category": "service",
+      "links": {"html": "https://endoflife.date/amazon-eks"},
+      "releases": [
+        {"name": "1.33", "releaseDate": "2025-05-29", "isLts": false, "isEol": false, "eolFrom": null, "latest": null}
+      ]
+    },
+    {
+      "name": "no-releases",
+      "label": "Product With No Releases",
+      "category": "app",
+      "links": {},
+      "releases": []
+    }
+  ]
+}

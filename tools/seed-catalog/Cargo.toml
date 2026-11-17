@@ -1,0 +1,21 @@
+[package]
+name = "seed-catalog"
+version = "0.1.0"
+edition = "2021"
+description = "Seed the Commercial TRM global technology catalog from endoflife.date"
+publish = false
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+clap = { version = "4", features = ["derive"] }
+postgres = { version = "0.19", features = ["with-chrono-0_4"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+rustls-pemfile = "2"
+serde_json = "1"
+tokio-postgres-rustls = "0.13"
+ureq = { version = "2", features = ["json"] }
+webpki-roots = "0.26"
+
+[profile.release]
+strip = true

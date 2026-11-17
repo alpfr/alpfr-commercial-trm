@@ -14,6 +14,7 @@ catalog seed script, and tests. There is no API or web app yet.
 | --- | --- |
 | `db/schema.sql` | PostgreSQL schema: shared catalog, per-tenant decisions, audit log, row-level security |
 | `scripts/seed_catalog.py` | Loads products and release lines from endoflife.date into the shared catalog |
+| `tools/seed-catalog/` | The same seed tool in Rust, built as a single binary |
 | `tests/` | Parsing tests (no database) and database tests (tenant isolation, append-only rules, idempotent seed) |
 | `docker-compose.yml` | Local PostgreSQL 16 with the schema loaded on first start |
 | `.github/workflows/ci.yml` | Runs the tests against PostgreSQL 16 on every push and pull request |
@@ -81,6 +82,26 @@ so a breaking change is possible. The parsing tests run against a fixture shaped
 like the v1 response; run `make seed-dry` after cloning to confirm the live API
 still parses. Connect as the schema owner, because global rows are owner-only.
 Re-running updates rows in place.
+
+## Rust seed tool
+
+`tools/seed-catalog` is a Rust port of the seed script with the same arguments
+and the same result in the database. Use it where you want one binary with no
+Python runtime, such as a container image or a scheduled job.
+
+```bash
+make rust-build               # needs a Rust toolchain (cargo)
+make rust-seed-dry
+make rust-seed
+# or directly:
+tools/seed-catalog/target/release/seed-catalog postgresql nodejs
+tools/seed-catalog/target/release/seed-catalog --from-file full.json
+```
+
+Database TLS: the tool uses TLS when the server offers it and verifies the
+server certificate against public roots. For a server with a private CA, such
+as Amazon RDS, pass `--ca-file <bundle.pem>`. For a local database you can add
+`?sslmode=disable` to `DATABASE_URL`.
 
 ## Roadmap
 

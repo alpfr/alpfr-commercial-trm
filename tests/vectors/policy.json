@@ -1,0 +1,205 @@
+{
+  "_comment": "Shared conformance cases for the policy core. Both crates/trm-policy (Rust) and trm_policy (Python) must pass every case. Add a case here whenever a rule changes.",
+  "versions": {
+    "valid": [
+      {"input": "16", "display": "16", "pre": false},
+      {"input": " 3.12 ", "display": "3.12", "pre": false},
+      {"input": "v1.33.2", "display": "1.33.2", "pre": false},
+      {"input": "V2.0", "display": "2.0", "pre": false},
+      {"input": "10.0.20348", "display": "10.0.20348", "pre": false},
+      {"input": "21.0.2+13", "display": "21.0.2", "pre": false},
+      {"input": "16.", "display": "16", "pre": false},
+      {"input": "16.4-alpine", "display": "16.4", "pre": false},
+      {"input": "2019 LTSC", "display": "2019", "pre": false},
+      {"input": "16-bookworm", "display": "16", "pre": false},
+      {"input": "8u412", "display": "8", "pre": false},
+      {"input": "12.04-precise", "display": "12.4", "pre": false},
+      {"input": "7.4-eap", "display": "7.4", "pre": false},
+      {"input": "2.1-developer", "display": "2.1", "pre": false},
+      {"input": "1.0-android2", "display": "1.0", "pre": false},
+      {"input": "17.0-rc1", "display": "17.0-rc1", "pre": true},
+      {"input": "17.0rc1", "display": "17.0-rc1", "pre": true},
+      {"input": "17.0-RC.2", "display": "17.0-rc.2", "pre": true},
+      {"input": "3.12.0b2", "display": "3.12.0-b2", "pre": true},
+      {"input": "3.12.0a1", "display": "3.12.0-a1", "pre": true},
+      {"input": "17.0-beta.2", "display": "17.0-beta.2", "pre": true},
+      {"input": "2.0-SNAPSHOT", "display": "2.0-snapshot", "pre": true},
+      {"input": "1.0.0-alpha", "display": "1.0.0-alpha", "pre": true},
+      {"input": "5.0-M3", "display": "5.0-m3", "pre": true},
+      {"input": "5.0_preview1", "display": "5.0-preview1", "pre": true},
+      {"input": "1.0-rc1+build5", "display": "1.0-rc1", "pre": true}
+    ],
+    "invalid": ["", "  ", "subscription", "latest", "v", "1..2", "-1", ".5", "x.1", "+1", "99999999999999999999"]
+  },
+  "ordering": [
+    ["16", "=", "16.0.0"],
+    ["16.4-alpine", "=", "16.4"],
+    ["v1.2", "=", "1.2.0+7"],
+    ["17.0rc1", "=", "17.0-RC1"],
+    ["16", "<", "16.0.1"],
+    ["1.9", "<", "1.10"],
+    ["9.99", "<", "10"],
+    ["16.9", "<", "17.0-rc1"],
+    ["17.0-rc1", "<", "17.0"],
+    ["17.0-alpha", "<", "17.0-beta"],
+    ["17.0-beta2", "<", "17.0-rc1"],
+    ["17.0-rc2", "<", "17.0-rc10"],
+    ["17.0-rc", "<", "17.0-rc1"],
+    ["17.0-rc.1", "<", "17.0-rc.1.1"],
+    ["17.0-beta.2", "<", "17.0-beta.11"],
+    ["3.12.0a1", "<", "3.12.0b1"]
+  ],
+  "ranges": [
+    {"range": ">=16 <18", "match": ["16", "16.0", "16.4", "17.9.9", "v17.2", "16.4-alpine", "17-bookworm"], "no_match": ["15.9", "18", "18.0.1", "9", "17.0-rc1", "18.0-beta1", "16.0-rc1", "18-alpine", "latest", ""]},
+    {"range": ">=16, <18", "match": ["16.4"], "no_match": ["18"]},
+    {"range": ">= 16 < 18", "match": ["16.4"], "no_match": ["18"]},
+    {"range": ">16 <=18", "match": ["16.0.1", "18", "18.0"], "no_match": ["16", "18.0.1"]},
+    {"range": "16", "match": ["16", "16.4", "16.10.2"], "no_match": ["17", "1.6", "160", "16.0-rc1"]},
+    {"range": "16.*", "match": ["16.0", "16.4"], "no_match": ["17.0"]},
+    {"range": "=16.x", "match": ["16.9"], "no_match": ["17"]},
+    {"range": "1.33.x", "match": ["1.33", "1.33.7"], "no_match": ["1.34.0", "1.3"]},
+    {"range": "16.0", "match": ["16", "16.0.5"], "no_match": ["16.1"]},
+    {"range": "*", "match": ["0.1", "99", "17.0"], "no_match": ["latest", "subscription", "17.0-rc1", ""]},
+    {"range": "x", "match": ["3"], "no_match": []},
+    {"range": "=16.4", "match": ["16.4", "16.4.0"], "no_match": ["16.4.1", "16"]},
+    {"range": "==16.4", "match": ["16.4"], "no_match": ["16.5"]},
+    {"range": "= 16.4", "match": ["16.4"], "no_match": ["16.5"]},
+    {"range": ">=16 <18 !=16.3", "match": ["16.2", "16.4"], "no_match": ["16.3", "16.3.0"]},
+    {"range": ">=14 <15 || >=16 <18", "match": ["14.2", "16.4", "17"], "no_match": ["15.1", "13", "18"]},
+    {"range": "12 || 14", "match": ["12.9", "14.0"], "no_match": ["13.0"]},
+    {"range": "12||14", "match": ["12.9", "14.0"], "no_match": ["13.0"]},
+    {"range": ">=17.0-rc1 <18", "match": ["17.0-rc1", "17.0-rc2", "17.0", "17.5"], "no_match": ["17.0-beta1", "17.1-rc1", "18.0-rc1"]},
+    {"range": "17.0-rc1", "match": ["17.0-rc1", "17.0rc1"], "no_match": ["17.0", "17.0-rc2"]},
+    {"range": "<17.0-rc2", "match": ["17.0-rc1", "16.9"], "no_match": ["17.0-rc2", "17.0", "16.9-rc1"]},
+    {"range": ">=16 <18 || 19.0-beta1", "match": ["19.0-beta1", "16.1"], "no_match": ["19.0", "19.0-beta2"]},
+    {"range": ">=v1.2", "match": ["1.2", "2"], "no_match": ["1.1"]},
+    {"range": ">=16-alpine", "match": ["16", "17"], "no_match": ["15"]}
+  ],
+  "invalid_ranges": ["", "  ", ">=", ">=16 <", "^1.2", "~1.2", ">=abc", ">*", "<16.*", ">=16 ||", "|| 16", "!=16.*", "17.0-rc1.*", ",", ">= >= 16", "16 ||  || 17", "!=x"],
+  "decisions": [
+    {
+      "name": "no decision is unapproved",
+      "decisions": [
+        {"id": "a", "target": {"range": ">=16 <18"}, "status": "approved"}
+      ],
+      "queries": [
+        {"version": "15.2", "verdict": "unapproved", "decision": null}
+      ]
+    },
+    {
+      "name": "status maps to verdict",
+      "decisions": [
+        {"id": "ok", "target": {"line": "1"}, "status": "approved"},
+        {"id": "awc", "target": {"line": "2"}, "status": "approved_with_constraints", "constraints": "internal use only"},
+        {"id": "div", "target": {"line": "3"}, "status": "divest"},
+        {"id": "no", "target": {"line": "4"}, "status": "prohibited"}
+      ],
+      "queries": [
+        {"version": "1.0", "verdict": "allow", "decision": "ok"},
+        {"version": "2.0", "verdict": "allow_with_constraints", "decision": "awc"},
+        {"version": "3.0", "verdict": "warn", "decision": "div"},
+        {"version": "4.0", "verdict": "deny", "decision": "no"},
+        {"version": "5.0", "verdict": "unapproved", "decision": null}
+      ]
+    },
+    {
+      "name": "release line beats range beats all",
+      "decisions": [
+        {"id": "all", "target": "all", "status": "prohibited"},
+        {"id": "range", "target": {"range": ">=12 <18"}, "status": "approved"},
+        {"id": "line", "target": {"line": "12"}, "status": "divest"}
+      ],
+      "queries": [
+        {"version": "12.22", "verdict": "warn", "decision": "line"},
+        {"version": "16.4", "verdict": "allow", "decision": "range"},
+        {"version": "9.6", "verdict": "deny", "decision": "all"},
+        {"version": "latest", "verdict": "deny", "decision": "all"},
+        {"version": "17.0-rc1", "verdict": "deny", "decision": "all"}
+      ]
+    },
+    {
+      "name": "release line matches by prefix or exact name",
+      "decisions": [
+        {"id": "num", "target": {"line": "1.33"}, "status": "approved"},
+        {"id": "named", "target": {"line": "Subscription"}, "status": "approved"},
+        {"id": "pre", "target": {"line": "2.0-rc1"}, "status": "divest"}
+      ],
+      "queries": [
+        {"version": "1.33.4", "verdict": "allow", "decision": "num"},
+        {"version": "v1.33", "verdict": "allow", "decision": "num"},
+        {"version": "1.3", "verdict": "unapproved", "decision": null},
+        {"version": " subscription ", "verdict": "allow", "decision": "named"},
+        {"version": "1.33.0-rc1", "verdict": "unapproved", "decision": null},
+        {"version": "2.0-RC1", "verdict": "warn", "decision": "pre"},
+        {"version": "2.0", "verdict": "unapproved", "decision": null}
+      ]
+    },
+    {
+      "name": "more restrictive status wins a tie",
+      "decisions": [
+        {"id": "ok", "target": {"range": ">=16 <18"}, "status": "approved"},
+        {"id": "no", "target": {"range": "16.3"}, "status": "prohibited"}
+      ],
+      "queries": [
+        {"version": "16.3.1", "verdict": "deny", "decision": "no"},
+        {"version": "16.4", "verdict": "allow", "decision": "ok"}
+      ]
+    },
+    {
+      "name": "scoped decision needs a matching scope",
+      "decisions": [
+        {"id": "any", "target": {"range": ">=16 <18"}, "status": "approved"},
+        {"id": "prod", "target": {"range": ">=16 <18"}, "status": "prohibited", "environment": "production"},
+        {"id": "prod-phi", "target": {"range": ">=16 <18"}, "status": "approved_with_constraints", "environment": "production", "data_classification": "phi", "constraints": "encrypted volumes only"}
+      ],
+      "queries": [
+        {"version": "16.4", "environment": "Production", "verdict": "deny", "decision": "prod"},
+        {"version": "16.4", "environment": " production ", "data_classification": "PHI", "verdict": "allow_with_constraints", "decision": "prod-phi"},
+        {"version": "16.4", "environment": "dev", "verdict": "allow", "decision": "any"},
+        {"version": "16.4", "verdict": "allow", "decision": "any"},
+        {"version": "16.4", "data_classification": "phi", "verdict": "allow", "decision": "any"}
+      ]
+    },
+    {
+      "name": "target specificity outranks scope specificity",
+      "decisions": [
+        {"id": "scoped-all", "target": "all", "status": "prohibited", "environment": "production", "data_classification": "phi"},
+        {"id": "line", "target": {"line": "16"}, "status": "approved"}
+      ],
+      "queries": [
+        {"version": "16.4", "environment": "production", "data_classification": "phi", "verdict": "allow", "decision": "line"},
+        {"version": "15.0", "environment": "production", "data_classification": "phi", "verdict": "deny", "decision": "scoped-all"}
+      ]
+    },
+    {
+      "name": "expiry and start dates",
+      "decisions": [
+        {"id": "old-line", "target": {"line": "16"}, "status": "approved", "valid_to": "2026-03-31"},
+        {"id": "range", "target": {"range": ">=16 <18"}, "status": "divest"},
+        {"id": "old-15", "target": {"line": "15"}, "status": "approved", "valid_to": "2026-03-31"},
+        {"id": "later", "target": {"line": "20"}, "status": "prohibited", "valid_from": "2026-09-01"}
+      ],
+      "queries": [
+        {"version": "16.4", "verdict": "warn", "decision": "range"},
+        {"version": "16.4", "on": "2026-03-31", "verdict": "allow", "decision": "old-line"},
+        {"version": "15.2", "verdict": "expired", "decision": "old-15"},
+        {"version": "15.2", "on": "2026-03-31", "verdict": "allow", "decision": "old-15"},
+        {"version": "20.1", "verdict": "unapproved", "decision": null},
+        {"version": "20.1", "on": "2026-09-01", "verdict": "deny", "decision": "later"}
+      ]
+    },
+    {
+      "name": "newest wins when everything else ties",
+      "decisions": [
+        {"id": "older", "target": {"range": ">=16 <19"}, "status": "approved"},
+        {"id": "newer", "target": {"range": ">=16 <18"}, "status": "approved", "valid_from": "2026-05-01"},
+        {"id": "same-day-later-in-list", "target": {"range": "16"}, "status": "approved", "valid_from": "2026-05-01"}
+      ],
+      "queries": [
+        {"version": "16.4", "verdict": "allow", "decision": "newer"},
+        {"version": "18.2", "verdict": "allow", "decision": "older"}
+      ]
+    }
+  ],
+  "decision_defaults": {"valid_from": "2026-01-01", "valid_to": "2026-12-31", "on": "2026-06-01"}
+}

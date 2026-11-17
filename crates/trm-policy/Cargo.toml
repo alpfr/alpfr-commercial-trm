@@ -1,0 +1,12 @@
+[package]
+name = "trm-policy"
+version = "0.1.0"
+edition = "2021"
+description = "Version-range matching and decision evaluation for the Commercial TRM"
+publish = false
+
+[dependencies]
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+
+[dev-dependencies]
+serde_json = "1"

@@ -6,6 +6,7 @@ import pytest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT))  # the trm_policy package
 
 FIXTURE = ROOT / "tests" / "fixtures" / "products_full.json"
 SCHEMA = ROOT / "db" / "schema.sql"

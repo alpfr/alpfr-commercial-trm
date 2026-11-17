@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = ["crates/trm-policy", "tools/seed-catalog"]
+
+[profile.release]
+strip = true
